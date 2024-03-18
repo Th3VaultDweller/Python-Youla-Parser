@@ -33,3 +33,25 @@ url = "https://youla.ru/user/5a81fe12f235023e6447afc4/"
 browser.get(url)
 print(f"[INFO] Перехожу по адресу {url}...\n")
 
+time.sleep(5)
+
+try:
+    browser.find_element(By.CLASS_NAME, "sc-ikHGee eamdVs").click()
+    time.sleep(10)
+
+except:
+    all_ads = browser.find_element(By.CLASS_NAME, "sc-jOiSOi gpQJHO").find_elements(
+        By.CLASS_NAME, "sc-bvfSZU ffvCCB"
+    )
+
+    for ad in all_ads:
+        ad_name = ad.find_element(
+            By.CLASS_NAME, "sc-cOxWqc sc-fhlCRY bOrVyP khXenE"
+        ).text
+        ad_price = ad.find_element(By.CLASS_NAME, "sc-fxhZON fzJDlO").text
+        print(f"Название объявления: {ad_name}\nЦена в объявлении: {ad_price}\n")
+        time.sleep(10)
+
+print("[INFO] Работа программы завершена!")
+
+browser.quit()
