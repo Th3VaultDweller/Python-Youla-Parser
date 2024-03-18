@@ -37,10 +37,12 @@ print(f"[INFO] Перехожу по адресу {url}...\n")
 time.sleep(120)
 
 try:
+    # нажимаем на кнопку "Показать ещё" до упора, если она вообще есть
     browser.find_element(By.CLASS_NAME, "sc-ikHGee eamdVs").click()
     time.sleep(10)
 
 except:
+    # потом проходимся по всем неактивным объявлениям
     all_ads = browser.find_element(By.CLASS_NAME, "sc-jOiSOi gpQJHO").find_elements(
         By.CLASS_NAME, "sc-bvfSZU ffvCCB"
     )
