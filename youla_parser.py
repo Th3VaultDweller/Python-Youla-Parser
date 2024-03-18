@@ -28,12 +28,13 @@ option.add_argument(
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 browser = webdriver.Chrome(options=option)
 
-# определяем URL сайта
-url = "https://youla.ru/user/5a81fe12f235023e6447afc4/"
+# определяем URL архива неактивных объявлений в профиле
+# каждый URL - уникален для каждого пользователя сайта
+url = "https://youla.ru/user/5a81fe12f235023e6447afc4/archive"
 browser.get(url)
 print(f"[INFO] Перехожу по адресу {url}...\n")
 
-time.sleep(5)
+time.sleep(120)
 
 try:
     browser.find_element(By.CLASS_NAME, "sc-ikHGee eamdVs").click()
@@ -49,7 +50,15 @@ except:
             By.CLASS_NAME, "sc-cOxWqc sc-fhlCRY bOrVyP khXenE"
         ).text
         ad_price = ad.find_element(By.CLASS_NAME, "sc-fxhZON fzJDlO").text
-        print(f"Название объявления: {ad_name}\nЦена в объявлении: {ad_price}\n")
+        ad_image = ad.find_element(By.TAG_NAME, "image").get_attribute("href")
+
+        print(
+            f"""
+            Название объявления: {ad_name}\n
+            Цена в объявлении: {ad_price}\n
+            Изображения объявления: {ad_image}\n
+            """
+        )
         time.sleep(10)
 
 print("[INFO] Работа программы завершена!")
