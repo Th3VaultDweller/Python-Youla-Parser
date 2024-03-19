@@ -27,8 +27,6 @@ option.add_argument("--disable-infobars")  # отключение всплыва
 option.add_argument("--start-maximized")  # включение полноэкранного режима
 # option.add_argument("--headless=new")  # запуск без окна браузера
 option.add_argument(f"--user_agent={random.choice(user_agent)}")
-option.add_argument("--headless=new")  # запуск без окна браузера
-option.add_argument(f"--user-agent={random.choice(user_agent)}")
 
 # берём драйвер для работы Selenium
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
