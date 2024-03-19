@@ -45,7 +45,7 @@ phone_number_location = browser.find_element(
     "/html/body/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/section/div/div/div/input",
 )  # находим поле для ввода номера телефона
 phone_number_input = input(
-    "[INFO] Введите  номер телефона без +7, привязянный к VK ID: "
+    "\n[INFO] Введите  номер телефона без +7, привязянный к VK ID: "
 )
 phone_number_location.send_keys(phone_number_input)
 time.sleep(5)
@@ -58,7 +58,7 @@ code_location = browser.find_element(
     "/html/body/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[2]/div/div/input",
 )  # находим поле для ввода кода
 code_input = input(
-    "[INFO] Введите код из пуш-уведомления на телефоне/электронной почты или 4 последние цифры номера телефона, от звонка с Юлы: "
+    "\n[INFO] Введите код из пуш-уведомления на телефоне/электронной почты или 4 последние цифры номера телефона, от звонка с Юлы: "
 )
 time.sleep(5)
 code_location.send_keys(code_input)
@@ -69,7 +69,7 @@ browser.get("https://youla.ru/")
 time.sleep(120)
 
 try:
-    print("[INFO] Закрываю всплывающее окно с подтвержденем профиля...")
+    print("\n[INFO] Закрываю всплывающее окно с подтвержденем профиля...\n")
     browser.find_element(
         By.XPATH,
         "/html/body/div[2]/div[2]/div[22]/div/div/div/main/div/div/div/div[1]/i",
@@ -117,7 +117,8 @@ except:
 
 overall_app_time = timer() - start_app_time  # общий подсчёт времени
 
-print("[INFO] Работа программы завершена!")
+print("[INFO] Работа программы завершена!\n")
 print(f"[INFO] Общее время парсинга: {round(overall_app_time)} секунд(а).\n")
+print("[INFO] Закрываю программу...")
 
 browser.quit()
