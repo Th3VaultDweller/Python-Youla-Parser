@@ -21,6 +21,7 @@ option = webdriver.ChromeOptions()
 option.add_argument("--incognito")  # режим инкогнито
 option.add_argument("--disable-infobars")  # отключение всплывающих окон
 option.add_argument("--start-maximized")  # включение полноэкранного режима
+option.add_argument("--headless=new") # запуск без окна браузера
 option.add_argument(
     "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 )
