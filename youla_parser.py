@@ -47,21 +47,24 @@ time.sleep(5)
 phone_number_location.send_keys(Keys.ENTER)
 
 time.sleep(30)  # ждём, пока не придёт пуш-код
+
 code_location = browser.find_element(
     By.XPATH,
     "/html/body/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[2]/div/div/input",
-)
+)  # находим поле для ввода кода
 code_input = input(
     "[INFO] Введите код из пуш-уведомления на телефоне/электронной почты или 4 последние цифры номера телефона, от звонка с Юлы: "
 )
+time.sleep(5)
 code_location.send_keys(code_input)
 
 time.sleep(120)
 
 try:
-    # закрываем всплывающее окно с подтверждением профиля
+    print("[INFO] Закрываю всплывающее окно с подтвержденем профиля...")
     browser.find_element(
-        By.XPATH, "/html/body/div[2]/div[2]/div[22]/div/div/div/main/div/div/div/div[1]/i"
+        By.XPATH,
+        "/html/body/div[2]/div[2]/div[22]/div/div/div/main/div/div/div/div[1]/i",
     ).click()
 except:
     pass
