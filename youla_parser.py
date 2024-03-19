@@ -58,6 +58,9 @@ code_input = input(
 time.sleep(5)
 code_location.send_keys(code_input)
 
+time.sleep(5)
+browser.get("https://youla.ru/")
+
 time.sleep(120)
 
 try:
@@ -72,8 +75,6 @@ except:
 time.sleep(10)
 
 # определяем URL архива неактивных объявлений в профиле
-# каждый URL - уникален для каждого пользователя сайта
-# сделать browser.find_element и взять url профиля с главной страницы юлы + передать это браузеру для перехода в архив
 url = browser.find_element(
     By.CLASS_NAME, "sc-gGvHcT sc-iqPaeV klBUgP chFKKW"
 ).get_attribute("href")
