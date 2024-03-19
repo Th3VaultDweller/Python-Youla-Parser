@@ -13,7 +13,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
+from spawn_user_agent.user_agent import SpawnUserAgent
 from webdriver_manager.chrome import ChromeDriverManager
+
+# делаем случайный User Agent
+user_agent = SpawnUserAgent.generate_all()
 
 # прописываем опции для запуска браузера
 option = Options()
@@ -21,10 +25,8 @@ option = webdriver.ChromeOptions()
 option.add_argument("--incognito")  # режим инкогнито
 option.add_argument("--disable-infobars")  # отключение всплывающих окон
 option.add_argument("--start-maximized")  # включение полноэкранного режима
-option.add_argument("--headless=new") # запуск без окна браузера
-option.add_argument(
-    "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-)
+# option.add_argument("--headless=new")  # запуск без окна браузера
+option.add_argument(f"--user_agent={random.choice(user_agent)}")
 
 # берём драйвер для работы Selenium
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
