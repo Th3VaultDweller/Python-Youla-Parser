@@ -28,6 +28,8 @@ option.add_argument("--start-maximized")  # включение полноэкр�
 # option.add_argument("--headless=new")  # запуск без окна браузера
 option.add_argument(f"--user_agent={random.choice(user_agent)}")
 
+start_app_time = timer()  # начало отсчёта со старта программы
+
 # берём драйвер для работы Selenium
 browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 browser = webdriver.Chrome(options=option)
@@ -113,6 +115,9 @@ except:
         )
         time.sleep(10)
 
+overall_app_time = timer() - start_app_time  # общий подсчёт времени
+
 print("[INFO] Работа программы завершена!")
+print(f"[INFO] Общее время парсинга: {round(overall_app_time)} секунд(а).\n")
 
 browser.quit()
