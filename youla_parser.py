@@ -52,7 +52,7 @@ phone_number_location.send_keys(phone_number_input)
 time.sleep(5)
 phone_number_location.send_keys(Keys.ENTER)
 
-time.sleep(30)  # ждём, пока не придёт пуш-код
+time.sleep(10)  # ждём, пока не придёт пуш-код
 
 code_location = browser.find_element(
     By.XPATH,
@@ -61,7 +61,6 @@ code_location = browser.find_element(
 code_input = input(
     "\n[INFO] Введите код из пуш-уведомления на телефоне/электронной почты или 4 последние цифры номера телефона от звонка с Юлы: "
 )
-time.sleep(5)
 code_location.send_keys(code_input)
 
 # начинаем взаимодействовать с самим сайтом
@@ -70,7 +69,7 @@ print("[INFO] Перехожу на главную страницу Юлы...\n"
 browser.get("https://youla.ru/")
 
 print("[INFO] Жду появления всплывающего окна...\n")
-time.sleep(15)
+time.sleep(5)
 
 print("[INFO] Закрываю всплывающее окно с подтвержденем профиля...\n")
 actions = ActionChains(browser)
@@ -80,46 +79,54 @@ actions.perform()
 time.sleep(10)
 
 # определяем URL архива неактивных объявлений в профиле
-url = browser.find_element(
-    By.CLASS_NAME, "sc-gGvHcT sc-iqPaeV klBUgP chFKKW"
-).get_attribute("href")
-browser.get(url + "/archive")
+print(f"[INFO] Перехожу в профиль...\n")
+browser.get("https://youla.ru/user")
+time.sleep(10)
+
 print(f"[INFO] Перехожу в архив неактивных объявлений в профиле...\n")
+browser.find_element(
+    By.XPATH,
+    "/html/body/div[2]/div[1]/div[4]/main/div/div/div/section[2]/div/div[2]/div/div/ul/li[2]",
+).click()
 
 time.sleep(10)
 
-try:
-    # нажимаем на кнопку "Показать ещё" до упора, если она вообще есть
-    print("[INFO] Нажимаю на кнопку <<Показать ещё>>...\n")
-    browser.find_element(By.CLASS_NAME, "sc-ikHGee eamdVs").click()
-    time.sleep(10)
+# try:
+#     # нажимаем на кнопку "Показать ещё" до упора, если она вообще есть
+#     print("[INFO] Ищу кнопку <<Показать ещё>> и пытаюсь нажать на неё...\n")
+#     browser.find_element(By.CLASS_NAME, "sc-ikHGee").click()
+#     time.sleep(10)
+# except:
+#     print("[INFO] Кнопки <<Показать ещё>> нет на данной странице...")
 
-except:
-    # потом проходимся по всем неактивным объявлениям
-    print("[INFO] Собираю информацию о неактивных объявлениях...\n")
-    all_ads = browser.find_element(By.CLASS_NAME, "sc-jOiSOi gpQJHO").find_elements(
-        By.CLASS_NAME, "sc-bvfSZU ffvCCB"
+# потом проходимся по всем неактивным объявлениям
+print("[INFO] Собираю информацию о неактивных объявлениях...\n")
+all_ads = browser.find_element(
+    By.XPATH,
+    "/html/body/div[2]/div[1]/div[4]/main/div/div/div/section[2]/div/div[2]/div/section",
+).find_elements(By.CLASS_NAME, "sc-bvfSZU")
+
+for i, ad in enumerate(all_ads):
+    ad_name = ad.find_element(By.CLASS_NAME, "sc-cOxWqc").text
+    ad_price = ad.find_element(By.CLASS_NAME, "sc-fxhZON").text
+    ad_image = ad.find_element(By.TAG_NAME, "image").get_attribute("href")
+    print(i)
+    print(
+        f"""
+        Название объявления: {ad_name}\n
+        Цена в объявлении: {ad_price} рублей\n
+        Изображения объявления: {ad_image}\n
+        """
     )
-
-    for i, ad in enumerate(all_ads):
-        ad_name = ad.find_element(
-            By.CLASS_NAME, "sc-cOxWqc sc-fhlCRY bOrVyP khXenE"
-        ).text
-        ad_price = ad.find_element(By.CLASS_NAME, "sc-fxhZON fzJDlO").text
-        ad_image = ad.find_element(By.TAG_NAME, "image").get_attribute("href")
-        print(i)
-        print(
-            f"""
-            Название объявления: {ad_name}\n
-            Цена в объявлении: {ad_price}\n
-            Изображения объявления: {ad_image}\n
-            """
-        )
-        time.sleep(10)
+    # browser.find_element(By.CLASS_NAME, "sc-islFiG").click()
+    time.sleep(10)
 
 overall_app_time = timer() - start_app_time  # общий подсчёт времени
 
-print("[INFO] Работа программы завершена!\n")
+# print(
+#     """[INFO] Все неактивные объявления успешно продлены.
+#       Работа программы завершена!\n"""
+# )
 print(f"[INFO] Общее время парсинга: {round(overall_app_time)} секунд(а).\n")
 print("[INFO] Закрываю программу...")
 
