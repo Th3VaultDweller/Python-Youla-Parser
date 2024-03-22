@@ -46,7 +46,7 @@ phone_number_location = browser.find_element(
     "/html/body/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[1]/section/div/div/div/input",
 )  # находим поле для ввода номера телефона
 phone_number_input = input(
-    "\n[INFO] Введите  номер телефона без +7, привязянный к VK ID: "
+    "\n[INFO] Введите номер телефона без +7, привязянный к VK ID: "
 )
 phone_number_location.send_keys(phone_number_input)
 time.sleep(5)
@@ -107,14 +107,14 @@ all_ads = browser.find_element(
 ).find_elements(By.CLASS_NAME, "sc-bvfSZU")
 
 for i, ad in enumerate(all_ads):
-    ad_name = ad.find_element(By.CLASS_NAME, "sc-cOxWqc").text
-    ad_price = ad.find_element(By.CLASS_NAME, "sc-fxhZON").text
-    ad_image = ad.find_element(By.TAG_NAME, "image").get_attribute("href")
+    ad_name = ad.find_element(By.CLASS_NAME, "sc-fhlCRY").text
+    ad_price = ad.find_element(By.CLASS_NAME, "sc-cOxWqc").text
+    ad_image = ad.find_element(By.TAG_NAME, "image").get_attribute("xlink:href")
     print(i)
     print(
         f"""
-        Название объявления: {ad_name}\n
-        Цена в объявлении: {ad_price} рублей\n
+        Название объявления: {ad_name}
+        Цена в объявлении: {ad_price} рублей
         Изображения объявления: {ad_image}\n
         """
     )
