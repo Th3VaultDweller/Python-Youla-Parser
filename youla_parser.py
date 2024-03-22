@@ -64,12 +64,14 @@ time.sleep(5)
 code_location.send_keys(code_input)
 
 time.sleep(5)
+print("[INFO] Перехожу на главную страницу Юлы...\n")
 browser.get("https://youla.ru/")
 
-time.sleep(120)
+print("[INFO] Ждуп появления всплывающего окна...\n")
+time.sleep(30)
 
 try:
-    print("\n[INFO] Закрываю всплывающее окно с подтвержденем профиля...\n")
+    print("[INFO] Закрываю всплывающее окно с подтвержденем профиля...\n")
     browser.find_element(
         By.XPATH,
         "/html/body/div[2]/div[2]/div[22]/div/div/div/main/div/div/div/div[1]/i",
@@ -83,18 +85,20 @@ time.sleep(10)
 url = browser.find_element(
     By.CLASS_NAME, "sc-gGvHcT sc-iqPaeV klBUgP chFKKW"
 ).get_attribute("href")
-browser.get(url)
-print(f"[INFO] Перехожу по адресу {url+'/archive'}...\n")
+browser.get(url + "/archive")
+print(f"[INFO] Перехожу в архив неактивных объявлений в профиле...\n")
 
 time.sleep(10)
 
 try:
     # нажимаем на кнопку "Показать ещё" до упора, если она вообще есть
     browser.find_element(By.CLASS_NAME, "sc-ikHGee eamdVs").click()
+    print("[INFO] Нажимаю на кнопку <<Показать ещё>>...\n")
     time.sleep(10)
 
 except:
     # потом проходимся по всем неактивным объявлениям
+    print("[INFO] Собираю информацию о неактивных объявлениях...\n")
     all_ads = browser.find_element(By.CLASS_NAME, "sc-jOiSOi gpQJHO").find_elements(
         By.CLASS_NAME, "sc-bvfSZU ffvCCB"
     )
