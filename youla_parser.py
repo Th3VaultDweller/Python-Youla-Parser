@@ -9,6 +9,7 @@ from selenium import webdriver
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
@@ -58,26 +59,23 @@ code_location = browser.find_element(
     "/html/body/div[1]/div/div/div/div/div[1]/div[2]/div/div/div/form/div[2]/div/div/input",
 )  # находим поле для ввода кода
 code_input = input(
-    "\n[INFO] Введите код из пуш-уведомления на телефоне/электронной почты или 4 последние цифры номера телефона, от звонка с Юлы: "
+    "\n[INFO] Введите код из пуш-уведомления на телефоне/электронной почты или 4 последние цифры номера телефона от звонка с Юлы: "
 )
 time.sleep(5)
 code_location.send_keys(code_input)
 
+# начинаем взаимодействовать с самим сайтом
 time.sleep(5)
 print("[INFO] Перехожу на главную страницу Юлы...\n")
 browser.get("https://youla.ru/")
 
-print("[INFO] Ждуп появления всплывающего окна...\n")
-time.sleep(30)
+print("[INFO] Жду появления всплывающего окна...\n")
+time.sleep(15)
 
-try:
-    print("[INFO] Закрываю всплывающее окно с подтвержденем профиля...\n")
-    browser.find_element(
-        By.XPATH,
-        "/html/body/div[2]/div[2]/div[22]/div/div/div/main/div/div/div/div[1]/i",
-    ).click()
-except:
-    pass
+print("[INFO] Закрываю всплывающее окно с подтвержденем профиля...\n")
+actions = ActionChains(browser)
+actions.send_keys(Keys.ESCAPE)
+actions.perform()
 
 time.sleep(10)
 
@@ -92,8 +90,8 @@ time.sleep(10)
 
 try:
     # нажимаем на кнопку "Показать ещё" до упора, если она вообще есть
-    browser.find_element(By.CLASS_NAME, "sc-ikHGee eamdVs").click()
     print("[INFO] Нажимаю на кнопку <<Показать ещё>>...\n")
+    browser.find_element(By.CLASS_NAME, "sc-ikHGee eamdVs").click()
     time.sleep(10)
 
 except:
@@ -103,13 +101,13 @@ except:
         By.CLASS_NAME, "sc-bvfSZU ffvCCB"
     )
 
-    for ad in all_ads:
+    for i, ad in enumerate(all_ads):
         ad_name = ad.find_element(
             By.CLASS_NAME, "sc-cOxWqc sc-fhlCRY bOrVyP khXenE"
         ).text
         ad_price = ad.find_element(By.CLASS_NAME, "sc-fxhZON fzJDlO").text
         ad_image = ad.find_element(By.TAG_NAME, "image").get_attribute("href")
-
+        print(i)
         print(
             f"""
             Название объявления: {ad_name}\n
