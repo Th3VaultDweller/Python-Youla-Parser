@@ -91,16 +91,8 @@ browser.find_element(
 
 time.sleep(10)
 
-# try:
-#     # нажимаем на кнопку "Показать ещё" до упора, если она вообще есть
-#     print("[INFO] Ищу кнопку <<Показать ещё>> и пытаюсь нажать на неё...\n")
-#     browser.find_element(By.CLASS_NAME, "sc-ikHGee").click()
-#     time.sleep(10)
-# except:
-#     print("[INFO] Кнопки <<Показать ещё>> нет на данной странице...")
-
 # потом проходимся по всем неактивным объявлениям
-print("[INFO] Собираю информацию о неактивных объявлениях...\n")
+print("[INFO] Собираю информацию о неактивных объявлениях и продлеваю их...\n")
 all_ads = browser.find_element(
     By.XPATH,
     "/html/body/div[2]/div[1]/div[4]/main/div/div/div/section[2]/div/div[2]/div/section",
@@ -118,15 +110,16 @@ for i, ad in enumerate(all_ads):
         Изображения объявления: {ad_image}\n
         """
     )
-    # browser.find_element(By.CLASS_NAME, "sc-islFiG").click()
-    time.sleep(10)
+    ad_click = ad.find_element(By.CLASS_NAME, "sc-islFiG").click()
+    time.sleep(5)
+    ad_pop_up_close = browser.find_element(By.CLASS_NAME, "sc-xWrgk").click()
 
 overall_app_time = timer() - start_app_time  # общий подсчёт времени
 
-# print(
-#     """[INFO] Все неактивные объявления успешно продлены.
-#       Работа программы завершена!\n"""
-# )
+print(
+    """[INFO] Все неактивные объявления успешно продлены.
+       Работа программы завершена!\n"""
+)
 print(f"[INFO] Общее время парсинга: {round(overall_app_time)} секунд(а).\n")
 print("[INFO] Закрываю программу...")
 
